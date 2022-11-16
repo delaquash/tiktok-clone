@@ -11,7 +11,7 @@ const List = ({items, mt}: {items: string[], mt: boolean}) => (
           </p>
       ))}
   </div>
-)
+);
 
 const Footer = () => {
   return (
@@ -22,7 +22,7 @@ const Footer = () => {
       <p className='text-gray-400 mt-5 text-sm'>2022 &reg; Delaquash</p>
     </div>
     
-  )
+  );
 }
 
 export default Footer
