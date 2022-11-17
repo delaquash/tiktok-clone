@@ -17,8 +17,6 @@ export const createOrGetUser = async (response: any, addUser: any) => {
     userName: name,
     image: picture,
   };
-  
   addUser(user);
-
   await axios.post(`${BASE_URL}/api/auth`, user);
 };
