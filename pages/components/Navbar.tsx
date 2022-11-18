@@ -9,10 +9,13 @@ import { IoMdAdd } from 'react-icons/io';
 import { AiFillHome } from "react-icons/ai";
 import Logo from '../../utils/tiktik-logo.png';
 import { createOrGetUser } from '../../utils';
+import useAuthStore from '../../store/authStore';
+
 
 
 const Navbar = () => {
-    const user = false;
+
+    const { userProfile, addUser } = useAuthStore();
   return (
     <div className='w-full flex justify-between items-center 
         border-b-2 border-gray-200  py-2 px-4'>
@@ -29,11 +32,11 @@ const Navbar = () => {
             Search
         </div>
         <div>
-          {user ? <div>
-            Login
+          {userProfile ? <div>
+            {userProfile.userName}
           </div> : (
             <GoogleLogin 
-              onSuccess={(response)=>console.log(response)}
+              onSuccess={(response)=>createOrGetUser(response, addUser)}
               onError={()=>console.log('Error')}
             />
           )}
