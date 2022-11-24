@@ -11,11 +11,9 @@ import Logo from '../../utils/tiktok.png';
 import { createOrGetUser } from '../../utils';
 import useAuthStore from '../../store/authStore';
 
-const ID = process.env.NEXT_GOOGLE_API_TOKEN
+const ID = process.env.NEXT_GOOGLE_API_TOKEN;
 
 const Navbar = () => {
-
-console.log(ID);
     const { userProfile, addUser, removeUser } = useAuthStore();
   return (
     <div className='w-full flex justify-between items-center 
@@ -43,13 +41,13 @@ console.log(ID);
                 </span>
             </button>
             </Link>
-            {userProfile.image && (
+            {userProfile?.image && (
               <Link href="/">
                 <Image
                   width={40}
                   height={40}
                   className="rounded-full cursor-pointer"
-                  src={userProfile.image}
+                  src={userProfile?.image}
                   alt="Video posted on app"
                 />
             </Link>
