@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FaCloudUploadAlt } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import axios from 'axios';
-
+import { SanityAssetDocument } from '@sanity/client';
 import { client } from '../utils/clients';
 import useAuthStore from '../store/authStore';
 
@@ -11,7 +11,28 @@ import useAuthStore from '../store/authStore';
 
 const Upload = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [videoAsset, setVideoAsset] = useState(null);
+    const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>();
+    const [wrongFileType, setWrongFileType ] = useState(false);
+
+    const uploadFile =async (e: any)=> {
+        const selectedFile = e.target.files[0]
+        const fileTypes = ['video/mp4', 'video/webm', 'video/ogg'];
+
+        if(fileTypes.includes(selectedFile.types)){
+            client.assets.upload('file', selectedFile, {
+                contentType: selectedFile.type,
+                filename: selectedFile.name
+            })
+            .then((data)=> {
+                setVideoAsset(data)
+                setIsLoading(false)
+            })
+        } else {
+            setIsLoading(false)
+            setWrongFileType(true)
+        }
+    }
+
   return (
     <div className='flex w-full h-full'>
         <div className='bg-white rounded-lg'>
@@ -51,6 +72,12 @@ const Upload = () => {
                                     Select File
                             </p>
                             </div>
+                            <input 
+                                name='upload-video'
+                                type='file'
+                                onChange={uploadFile}
+                                className="w-0 h-0"
+                            />
                             </label>)}
                             </div>
                      )}
