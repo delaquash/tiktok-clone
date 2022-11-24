@@ -8,7 +8,6 @@ import { client } from '../utils/clients';
 import useAuthStore from '../store/authStore';
 
 
-
 const Upload = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>();
@@ -50,38 +49,55 @@ const Upload = () => {
                         <div>
                         {videoAsset ? (
                             <div>
-                                Hello
+                                <video
+                                    src={videoAsset.url}
+                                    loop
+                                    controls
+                                    className="rounded-xl h-[450px]
+                                    mt-10 bg-black"
+                                >
+
+                                </video>
                             </div>
                         ):(
                             <label className="cursor-pointer">
-                            <div className='flex flex-col items-center justify-center h-full'>
-                            <div className="flex flex-col items-center justify-center">
-                                <p className='font-bold text-xl'>
-                                    <FaCloudUploadAlt className='text-gray-300 text-6xl'/>
-                                </p>
-                                <p className='text-xl font-semibold'>Select Video to Upload</p>
-                            </div>
-                            <p className='text-gray-400 text-center mt-10 text-sm leading-10'>
-                                MP4 or WebM or ogg <br />
-                                720X1280 or higher <br />
-                                Upto to 10minutes <br />
-                                Less than 2GB
-                            </p>
-                            <p className='bg-[#F51997] text-center mt-10 rounded 
-                                p-2 w-52 outline-none text-white text-md font-medium'>
-                                    Select File
-                            </p>
-                            </div>
-                            <input 
-                                name='upload-video'
-                                type='file'
-                                onChange={uploadFile}
-                                className="w-0 h-0"
-                            />
-                            </label>)}
-                            </div>
+                                <div className='flex flex-col items-center justify-center h-full'>
+                                    <div className="flex flex-col items-center justify-center">
+                                        <p className='font-bold text-xl'>
+                                            <FaCloudUploadAlt className='text-gray-300 text-6xl'/>
+                                        </p>
+                                        <p className='text-xl font-semibold'>
+                                            Select Video to Upload
+                                        </p>
+                                    </div>
+                                    <p className='text-gray-400 text-center mt-10 text-sm leading-10'>
+                                        MP4 or WebM or ogg <br />
+                                        720X1280 or higher <br />
+                                        Upto to 10minutes <br />
+                                        Less than 2GB
+                                    </p>
+                                    <p className='bg-[#F51997] text-center mt-10 rounded 
+                                        p-2 w-52 outline-none text-white text-md font-medium'>
+                                            Select File
+                                    </p>
+                                </div>
+                                    <input 
+                                        name='upload-video'
+                                        type='file'
+                                        onChange={uploadFile}
+                                        className="w-0 h-0"
+                                    />
+                            </label>
+                            )}
+                        </div>
+                     )}
+                     {wrongFileType &&  (
+                        <p className='text-center text-xl text-red-400 font-semibold mt-4 w-[250px]'>
+                            Please select a video file
+                        </p>
                      )}
                 </div>
+                
             </div>
         </div>
     </div>
