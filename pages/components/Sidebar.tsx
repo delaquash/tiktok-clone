@@ -13,7 +13,7 @@ import Footer from './Footer';
 const Sidebar = () => {
     const [showSideBar, setShowSideBar] = useState(true)
     const userProfile = false
-    const normalink = "flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded";
+    const normaLink = "flex items-center gap-3 hover:bg-primary p-3 justify-center xl:justify-start cursor-pointer font-semibold text-[#F51997] rounded";
   return (
     <div>
         <div 
@@ -28,7 +28,7 @@ const Sidebar = () => {
                         mb-10 border-r-2 border-gray-200 xl:border-0 p-3'>  
                             <div className='xl:border-b-2 border-gray-200 xl:pb-4'>
                                 <Link href='/'>
-                                    <div className={normalink}>
+                                    <div className={normaLink}>
                                         <p className="text-2xl">
                                             <AiFillHome />
                                         </p>
