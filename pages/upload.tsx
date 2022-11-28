@@ -17,6 +17,7 @@ const Upload = () => {
     const [category, setCategory] = useState(topics[0].name);
     const [savingPost, setSavingPost] = useState(false);
     const { userProfile }: { userProfile: any } = useAuthStore();
+    const router = useRouter()
 
         const uploadFile =async (e: any)=> {
         const selectedFile = e.target.files[0]
@@ -54,8 +55,11 @@ const Upload = () => {
                 postedBy: {
                     _type: 'postedBy',
                     _ref: userProfile?._id
-                }
+                },
+                topic: category
             }
+            await axios.post ('http://localhost:3000/api/post', document);
+            router.push
         }
     }
 
