@@ -64,7 +64,7 @@ const VideoCard = ({post} : VCProps) => {
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={()=> setIsHover(false)}
           >
-                <Link href="/">
+                <Link href={`/pages/detail/${post._id}`}>
                     <video
                         loop
                         ref={videoRef}

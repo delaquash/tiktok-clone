@@ -38,31 +38,7 @@ const Sidebar = () => {
                                     </div>
                                 </Link>
                             </div> 
-                            {!userProfile && (
-                                <div className='px-2 py-4 hidden xl:block'>
-                                    <p className='text-gray-400'>
-                                        Login in to like and comment on videos
-                                    </p>
-                                    <div className="pr-4">
-                                        <GoogleLogin
-                                            clientId=''
-                                            render={renderProps=> (
-                                                <button
-                                                    className='bg-white text-lg mt-3 w-fulloutline-none hover:text-white w-full
-                                                    text-[#f51997] border-[1px] px-3 py-6 font-semibold rounded-3xl hover:bg-[#F51997]'
-                                                    disabled={renderProps.disabled}
-                                                    onClick={renderProps.onClick}
-                                                >
-                                                    Log in
-                                                </button>
-                                            )}
-                                            onSuccess={()=>{}}
-                                            onFailure={()=> {}}
-                                            cookiePolicy="single_host_origin"
-                                        />
-                                    </div>
-                                </div>
-                            )}
+                            
                             <Discover />
                             <SuggestedAccount />
                             <Footer />
