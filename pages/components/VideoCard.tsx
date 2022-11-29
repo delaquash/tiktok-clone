@@ -17,6 +17,8 @@ const VideoCard = ({post} : VCProps) => {
   const [isMuted, setIsMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+
+  // play and pause functionalities
   const onVideoPres = () => {
     if(isPlaying){
       videoRef?.current?.pause();
@@ -26,6 +28,13 @@ const VideoCard = ({post} : VCProps) => {
       setIsPlaying(true)
     };
   };
+
+  // muting the video\
+  useEffect(()=> {
+    if(videoRef?.current) {
+      videoRef.current.muted =isMuted
+    } 
+  }, [isMuted])
 
   return (
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>

@@ -21,7 +21,7 @@ const Detail = ({ postDetails }: iProps )=> {
   const [isMuted, setIsMuted] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null);
 
-
+// play and pause functionalities
   const onVideoClick =() => {
     if(playing){
       videoRef?.current?.pause()
@@ -30,8 +30,15 @@ const Detail = ({ postDetails }: iProps )=> {
       videoRef?.current?.play()
       setPlaying(true)
     }
-
   }
+
+   // muting the video\
+  useEffect(()=> {
+    if(videoRef?.current) {
+      videoRef.current.muted =isMuted
+    } 
+  }, [isMuted])
+  
   return (
   <div className='flex w-full left-0 top-0 bg-white flex-wrap lg:flex-nowrap'>
     <div className="justify-center relative flex-2 w-[1000px] lg:w-9/12 flex items-center bg-black">
