@@ -8,6 +8,9 @@ import { BsFillPlayFill } from 'react-icons/bs';
 import { HiVolumeOff, HiVolumeUp } from 'react-icons/hi';
 import axios from 'axios';
 import { Video } from '../../types';
+import useAuthStore from '../../store/authStore';
+import LikeButton from '../components/LikeButton';
+import Comment from '../components/Comment';
 
 interface  iProps {
     postDetails : Video
@@ -20,6 +23,8 @@ const Detail = ({ postDetails }: iProps )=> {
   const [playing, setPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null);
+  const router = useRouter()
+  const { userProfile } = useAuthStore()
 
 // play and pause functionalities
   const onVideoClick =() => {
@@ -34,17 +39,20 @@ const Detail = ({ postDetails }: iProps )=> {
 
    // muting the video\
   useEffect(()=> {
-    if(videoRef?.current) {
+    if(post && videoRef?.current) {
       videoRef.current.muted =isMuted
     } 
-  }, [isMuted])
-  
+  }, [isMuted, post])
+  if(!post) return null;
+
   return (
   <div className='flex w-full left-0 top-0 bg-white flex-wrap lg:flex-nowrap'>
     <div className="justify-center relative flex-2 w-[1000px] lg:w-9/12 flex items-center bg-black">
         <div className='absolute top-6 left-2 flex lg:left-6 gap-6 z-50'>
-            <p>
-               <MdOutlineCancel className='text-white text-[35px]'/>
+            <p className='cursor-pointer'>
+               <MdOutlineCancel
+                  onClick={()=> router.back()} 
+                  className='text-white text-[35px]'/>
              </p>
         </div>
         <div className='relative'>
@@ -88,6 +96,48 @@ const Detail = ({ postDetails }: iProps )=> {
                 ) }
           </div>
         </div>
+        <div className="relative md:w-[900px[ w-[1000px] lg:w-[700px]">
+              <div className="lg:mt-20 mt-10">
+              <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded'>
+        <div className='ml-4 md:w-20 md:h-20 w-16 h-16'>
+          <Link href="/">
+            <>
+              <Image
+                width={62}
+                height={62}
+                className="rounded-full"
+                src={post.postedBy.image}
+                alt="Video posted on app"
+              />
+            </>
+          </Link>
+        </div>
+        <Link href='/'>
+          <div className='flex flex-col gap-2'>
+              <p className='flex items-center gap-2 md:text-md font-bold text-primary'>
+                {post.postedBy.userName}{``}
+                  <GoVerified 
+                      className='text-blue-400 text-md'
+                  />
+              </p>
+              <p className='capitalize font-medium text-xs text-gray-500 
+              hidden md:block'>
+                {post.postedBy.userName}
+              </p>
+          </div>  
+        </Link>    
+      </div>
+      </div>
+      <p className='px-10 text-lg text-gray-600'>
+              {post.caption}
+      </p>
+      <div className="px-10 mt-10">
+          {userProfile ? (
+            <LikeButton />
+          ): null}
+          <Comment />
+      </div>
+      </div>
   </div>
 </div>
   )
