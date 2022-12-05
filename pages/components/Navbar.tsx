@@ -41,17 +41,17 @@ const Navbar = () => {
                 </span>
             </button>
             </Link>
-            {userProfile?.image && (
+            {userProfile.image ?  (
               <Link href="/">
                 <Image
                   width={40}
                   height={40}
                   className="rounded-full cursor-pointer"
-                  src={userProfile?.image}
+                  src={userProfile.image}
                   alt="Video posted on app"
                 />
             </Link>
-            )}
+            ): null}
             <button
                 type='button'
                 className=' border-2 p-2 rounded-full cursor-pointer outline-none shadow-md'
