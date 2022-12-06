@@ -19,12 +19,14 @@ interface  iProps {
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 const Detail = ({ postDetails }: iProps )=> {
-  const [post, setPost] = useState(postDetails)
-  const [playing, setPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
+  const [post, setPost] = useState(postDetails);
+  const [playing, setPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const router = useRouter()
-  const { userProfile }: any = useAuthStore()
+  const router = useRouter();
+  const { userProfile }: any = useAuthStore();
+  const [comment, setComment] = useState('');
+  const [ isPostingComment, setIsPostingComment ]= useState(false)
 
 // play and pause functionalities
   const onVideoClick =() => {
@@ -53,6 +55,18 @@ const Detail = ({ postDetails }: iProps )=> {
       })
       setPost({...post, likes: data.likes})
     }
+}
+
+const addComment =async (e:React.FormEvent<Element>) => {
+    e.preventDefault();
+      if(userProfile && comment){
+        setIsPostingComment(true);
+        const { data } = await axios.put(`${BASE_URL}/api/post/${post._id}`, {
+          userId: userProfile._id,
+          comment
+        })
+        setComment({...post, comments: data.comments})
+      }
 }
   if(!post) return null;
 
@@ -150,7 +164,14 @@ const Detail = ({ postDetails }: iProps )=> {
                 handleDisLike={()=> handleLike(false)}
             />
           ): null}
-          <Comment />
+          <Comment 
+              comment={comment}
+              /* A prop that is being passed to the Comment component. */
+              setComment={setComment}
+              addComment={addComment}
+              comments={post.comments}
+              isPostingComment= {isPostingComment}
+          />
       </div>
       </div>
   </div>
