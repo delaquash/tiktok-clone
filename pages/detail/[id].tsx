@@ -65,7 +65,9 @@ const addComment =async (e:React.FormEvent<Element>) => {
           userId: userProfile._id,
           comment
         })
-        setComment({...post, comments: data.comments})
+        setPost({ ...post, comments:data.comments })
+        setComment("")
+        setIsPostingComment(false)
       }
 }
   if(!post) return null;
