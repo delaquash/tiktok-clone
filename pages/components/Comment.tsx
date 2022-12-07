@@ -53,4 +53,4 @@ const Comment = ({comment, setComment, addComment, comments, isPostingComment }:
   )
 }
 
-export default Comment
+export default Comment;

@@ -192,4 +192,4 @@ export const getServerSideProps= async({ params: { id }}: {params: {id: string }
     }
 
 
-export default Detail
+export default Detail;
