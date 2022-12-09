@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { Video } from '../types';
+import { BASE_URL } from '../utils';
 import NoResults from './components/NoResults';
 import VideoCard from './components/VideoCard';
+
 
 interface IProps {
   videos: Video[]
@@ -22,14 +24,18 @@ const Home =({ videos }: IProps) => {
 }
 
 /* Fetching data from the server. */
-export const getServerSideProps =async ()=> {
-      const { data } = await axios.get(`http://localhost:3000/api/post`)
+export const getServerSideProps = async ({
+  query: { topic },
+}: {
+  query: { topic: string };
+}) => {
+  let response = await axios.get(`${BASE_URL}/api/post`);
 
-      return { 
-        props: {
-          videos: data
-        } 
-      }
-}
-
-export default Home;
+  if(topic) {
+    response = await axios.get(`${BASE_URL}/api/discover/${topic}`);
+  }
+  
+  return {
+    props: { videos: response.data },
+  };
+};
